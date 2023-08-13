@@ -34,6 +34,8 @@ class Order extends Model
 
     /**
      * The "boot" method of the model.
+     *
+     * @return void
      */
     protected static function boot(): void
     {
@@ -56,6 +58,8 @@ class Order extends Model
 
     /**
      * Get all of the products for the order.
+     *
+     * @return BelongsToMany
      */
     public function products(): BelongsToMany
     {
@@ -66,6 +70,8 @@ class Order extends Model
 
     /**
      * Get all of the users for the order.
+     *
+     * @return BelongsToMany
      */
     public function users(): BelongsToMany
     {
