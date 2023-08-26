@@ -70,6 +70,17 @@ class Order extends Model
     }
 
     /**
+     * Get all of the allowed products for the order.
+     *
+     * @return BelongsToMany
+     */
+    public function allowedProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'allowed_products')
+            ->withTimestamps();
+    }
+
+    /**
      * Get the product summary for the order.
      *
      * @return Collection
