@@ -38,7 +38,7 @@ class OrderController extends Controller
             collect($request->allowed_products)->pluck('id')->toArray()
         );
 
-        return redirect()->route('orders.show', $order)->with('success', 'Order created.');
+        return Redirect::route('orders.show', $order)->with('success', 'Order created.');
     }
 
     /**
@@ -66,7 +66,7 @@ class OrderController extends Controller
             collect($request->allowed_products)->pluck('id')->toArray()
         );
 
-        return redirect()->route('orders.show', $order)->with('success', 'Order updated.');
+        return Redirect::route('orders.show', $order)->with('success', 'Order updated.');
     }
 
     /**
