@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Order extends Model
@@ -66,5 +67,23 @@ class Order extends Model
         return $this->belongsToMany(Product::class)
             ->withPivot('quantity', 'user_id')
             ->withTimestamps();
+    }
+
+    /**
+     * Get the product summary for the order.
+     *
+     * @return Collection
+     */
+    public function productSummary(): Collection
+    {
+        return $this->products
+            ->groupBy('id')
+            ->map(function ($productGroup) {
+                return [
+                    'product_id' => $productGroup[0]->id,
+                    'product_name' => $productGroup[0]->name,
+                    'total_quantity' => $productGroup->sum('pivot.quantity')
+                ];
+            });
     }
 }
