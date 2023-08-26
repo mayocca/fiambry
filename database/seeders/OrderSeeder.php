@@ -12,14 +12,18 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Order::factory()
-            ->count(10)
-            ->hasAttached(
-                \App\Models\Product::factory()
-                    ->count(3)
-                    ->create(),
-                ['user_id' => \App\Models\User::all()->random()->id]
-            )
-            ->create();
+        \App\Models\Order::factory(10)
+            ->create()
+            ->each(function (\App\Models\Order $order) {
+                for ($i = 0; $i < rand(3, 7); $i++) {
+                    $order->products()->attach(
+                        \App\Models\Product::all()->random()->id,
+                        [
+                            'user_id' => \App\Models\User::all()->random()->id,
+                            'quantity' => rand(1, 5),
+                        ],
+                    );
+                }
+            });
     }
 }
