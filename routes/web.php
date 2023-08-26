@@ -18,4 +18,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::resource('orders', \App\Http\Controllers\OrderController::class);
+Route::resources([
+    'orders' => \App\Http\Controllers\OrderController::class,
+    'order.product' => \App\Http\Controllers\OrderProductController::class,
+]);

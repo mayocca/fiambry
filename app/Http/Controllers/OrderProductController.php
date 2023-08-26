@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreOrderProductRequest;
+use App\Http\Requests\UpdateOrderProductRequest;
+use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class OrderProductController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Order $order)
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Order $order)
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreOrderProductRequest $request, Order $order)
+    {
+        $order->products()->attach($request->product_id, [
+            'user_id' => $request->user()->id,
+            'quantity' => $request->quantity,
+        ]);
+
+        return redirect()->route('orders.show', $order)->with('success', 'Product added to order.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Order $order, Product $product)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Order $order, Product $product)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateOrderProductRequest $request, Order $order, Product $product)
+    {
+        $order->products()
+            ->wherePivot('user_id', $request->user()->id)
+            ->updateExistingPivot($product->id, [
+                'quantity' => $request->quantity,
+            ]);
+
+        return redirect()->route('orders.show', $order)->with('success', 'Product updated.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Order $order, Product $product)
+    {
+        $order->products()->where('user_id', request()->user()->id)->detach($product->id);
+
+        return redirect()->route('orders.show', $order)->with('success', 'Product removed from order.');
+    }
+}
