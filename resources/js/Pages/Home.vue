@@ -1,8 +1,3 @@
-<script setup>
-import Layout from "@/Layouts/Layout.vue";
-import { Link } from "@inertiajs/vue3";
-</script>
-
 <template>
     <Layout>
         <div class="flex flex-col items-center gap-4">
@@ -11,14 +6,18 @@ import { Link } from "@inertiajs/vue3";
             >
                 fiambres
             </h1>
-            <Link
-                href="/orders/create"
-                class="relative block px-4 py-2 bg-white text-black shadow-md gradient-border hover:shadow-lg"
-                >Crear pedido</Link
-            >
+            <Link href="/orders/create">
+                <Button title="Crear pedido" />
+            </Link>
         </div>
     </Layout>
 </template>
+
+<script setup>
+import Button from "@/Components/Button.vue";
+import Layout from "@/Layouts/Layout.vue";
+import { Link } from "@inertiajs/vue3";
+</script>
 
 <style scoped lang="scss">
 $border-radius: 2px;
