@@ -24,7 +24,8 @@ it('can add a product to an order if the product is allowed', function () {
     $response->assertSessionHas('success', 'Product added to order.');
     $response->assertRedirect();
 
-    expect($this->order->products->pluck('id'))->toContain($productToAdd->id);
+    expect($this->order->products->pluck('id'))
+        ->toContain($productToAdd->id);
 });
 
 it('cannot add a product to an order if the product is not allowed', function () {
@@ -39,7 +40,8 @@ it('cannot add a product to an order if the product is not allowed', function ()
     $response->assertSessionHasErrors();
     $response->assertRedirect();
 
-    expect($this->order->products->pluck('id'))->not->toContain($notAllowedProduct->id);
+    expect($this->order->products->pluck('id'))
+        ->not->toContain($notAllowedProduct->id);
 });
 
 it('can update the quantity of an existing product in an order', function () {
@@ -58,8 +60,8 @@ it('can update the quantity of an existing product in an order', function () {
     $response->assertSessionHas('success', 'Product updated.');
     $response->assertRedirect();
 
-    // Assert the quantity was updated to 3
-    expect($this->order->fresh()->products->where('id', $productToUpdate->id)->first()->pivot->quantity)->toBe(3);
+    expect($this->order->fresh()->products->where('id', $productToUpdate->id)->first()->pivot->quantity)
+        ->toBe(3);
 });
 
 it('can remove a product from an order', function () {
@@ -76,6 +78,6 @@ it('can remove a product from an order', function () {
     $response->assertSessionHas('success', 'Product removed from order.');
     $response->assertRedirect();
 
-    // Assert product is no longer attached to the order
-    expect($this->order->fresh()->products)->not->toContain($productToRemove);
+    expect($this->order->fresh()->products)
+        ->not->toContain($productToRemove);
 });
