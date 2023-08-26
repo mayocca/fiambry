@@ -1,5 +1,5 @@
 <template>
-    <main class="w-screen h-screen">
+    <div class="grid place-items-center h-screen">
         <slot />
-    </main>
+    </div>
 </template>
