@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('order_id')
+            $table->foreignUuid('order_id')
                 ->constrained('orders')
                 ->cascadeOnDelete();
 

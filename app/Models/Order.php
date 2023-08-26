@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,10 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class Order extends Model
 {
     use HasFactory;
+    use HasUuids;
     use SoftDeletes;
 
     /**
@@ -22,15 +25,6 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
-    ];
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [
-        'code',
     ];
 
     /**
@@ -45,6 +39,14 @@ class Order extends Model
         static::creating(function (Order $order) {
             $order->code = Str::upper(Str::random(12));
         });
+    }
+
+    /**
+     * Generate a new UUID for the model.
+     */
+    public function newUniqueId(): string
+    {
+        return (string) Uuid::uuid4();
     }
 
     /**
@@ -81,11 +83,11 @@ class Order extends Model
     }
 
     /**
-     * Get the product summary for the order.
+     * Get the products summary for the order.
      *
      * @return Collection
      */
-    public function productSummary(): Collection
+    public function productsSummary(): Collection
     {
         return $this->products
             ->groupBy('id')
