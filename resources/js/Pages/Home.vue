@@ -1,22 +1,22 @@
 <template>
-    <Layout>
-        <div class="flex flex-col items-center gap-4">
-            <h1
-                class="font-bold text-3xl sm:text-6xl from-blue-700 via-orange-400 to-pink-500 bg-gradient-to-br bg-clip-text text-transparent"
-            >
-                fiambres
-            </h1>
-            <Link href="/orders/create">
-                <Button title="Crear pedido" />
-            </Link>
-        </div>
-    </Layout>
+    <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
+        <Link href="/orders/create">
+            <Button title="Crear pedido" />
+        </Link>
+    </div>
 </template>
 
 <script setup>
 import Button from "@/Components/Button.vue";
-import Layout from "@/Layouts/Layout.vue";
 import { Link } from "@inertiajs/vue3";
+</script>
+
+<script>
+import Layout from "@/Layouts/Layout.vue";
+
+export default {
+    layout: Layout,
+};
 </script>
 
 <style scoped lang="scss">
