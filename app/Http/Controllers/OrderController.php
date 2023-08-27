@@ -55,7 +55,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return Inertia::render('Orders/Show', [
+            'order' => $order,
+            'products_summary' => $order->productsSummary(),
+        ]);
     }
 
     /**

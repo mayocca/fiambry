@@ -93,10 +93,11 @@ class Order extends Model
             ->groupBy('id')
             ->map(function ($productGroup) {
                 return [
-                    'product_id' => $productGroup[0]->id,
-                    'product_name' => $productGroup[0]->name,
+                    'id' => $productGroup[0]->id,
+                    'name' => $productGroup[0]->name,
                     'total_quantity' => $productGroup->sum('pivot.quantity')
                 ];
-            });
+            })
+            ->values();
     }
 }
