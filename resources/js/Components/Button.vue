@@ -1,16 +1,19 @@
 <template>
-    <button
-        class="relative block w-full px-4 py-1 bg-white text-black shadow-md gradient-border hover:shadow-lg"
+    <Link
+        class="relative block text-center px-4 py-1 bg-white text-black shadow-md gradient-border hover:shadow-lg"
+        :href="href"
     >
-        {{ title }}
-    </button>
+        <slot />
+    </Link>
 </template>
 
 <script setup>
+import { Link } from "@inertiajs/vue3";
+
 defineProps({
-    title: {
+    href: {
         type: String,
-        default: "Button",
+        required: true,
     },
 });
 </script>

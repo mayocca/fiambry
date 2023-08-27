@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="sticky top-0 flex justify-center py-2 mb-4 border-[0.5px] border-b-gray-400"
+        class="sticky top-0 flex gap-2 items-center justify-between px-4 py-2 mb-4 border-[0.5px] border-b-gray-400"
     >
         <Link href="/">
             <span
@@ -9,10 +9,13 @@
                 fiambres
             </span>
         </Link>
+
+        <Button href="/login">Login</Button>
     </nav>
     <slot />
 </template>
 
 <script setup>
+import Button from "@/Components/Button.vue";
 import { Link } from "@inertiajs/vue3";
 </script>
