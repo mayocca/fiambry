@@ -23,8 +23,8 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'allowed_products' => ['required', 'array'],
-            'allowed_products.*' => ['required', 'array:id'],
-            'allowed_products.*.id' => ['required', 'integer', 'exists:products,id'],
+            'allowed_products.*' => ['required', 'array:name'],
+            'allowed_products.*.name' => ['required', 'string', 'max:255'],
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -25,7 +26,7 @@ class OrderController extends Controller
     public function create()
     {
         return Inertia::render('Orders/Create', [
-            'products' => Product::all(),
+            // 'products' => Product::all(),
         ]);
     }
 
@@ -38,9 +39,13 @@ class OrderController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        $order->allowedProducts()->sync(
-            collect($request->allowed_products)->pluck('id')->toArray()
-        );
+        $allowedProducts = collect($request->allowed_products)
+            ->pluck('name')
+            ->map(fn (string $name) => Str::transliterate($name))
+            ->map(fn (string $name) => Str::lower($name))
+            ->map(fn (string $name) => Product::firstOrCreate(['name' => $name]));
+
+        $order->allowedProducts()->sync($allowedProducts->pluck('id')->toArray());
 
         return Redirect::route('orders.show', $order)->with('success', 'Order created.');
     }

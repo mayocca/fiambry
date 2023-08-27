@@ -26,8 +26,8 @@ class Product extends Model
     public function name(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value,
-            set: fn ($value) => Str::title($value),
+            get: fn ($value) => Str::title($value),
+            set: fn ($value) => Str::lower(Str::transliterate($value)),
         );
     }
 
