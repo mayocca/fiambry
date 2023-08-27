@@ -5,9 +5,8 @@
         <Link href="/">
             <span
                 class="font-bold text-2xl sm:text-4xl from-blue-700 via-orange-400 to-pink-500 bg-gradient-to-br bg-clip-text text-transparent"
+                >Fiambry</span
             >
-                fiambres
-            </span>
         </Link>
 
         <Button v-if="!auth.user" @click="$inertia.visit('/login')"
