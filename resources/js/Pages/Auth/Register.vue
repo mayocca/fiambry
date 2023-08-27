@@ -4,25 +4,30 @@
             class="flex flex-col border-[0.5px] border-gray-300 rounded-sm shadow-md p-8 mx-4"
         >
             <form class="flex flex-col gap-4" @submit.prevent="submit">
-                <h1 class="text-2xl font-bold text-center">Login</h1>
+                <h1 class="text-2xl font-bold text-center">Registrarse</h1>
                 <div class="flex flex-col gap-2">
-                    <span
-                        v-if="form.errors.email"
-                        class="text-red-500 text-[0.6rem] text-center"
-                        >{{ form.errors.email }}</span
-                    >
+                    <label for="name" class="sr-only">Nombre</label>
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
+                        placeholder="Nombre"
+                        v-model="form.name"
+                        autofocus
+                        required
+                    />
+                </div>
+
+                <div class="flex flex-col gap-2">
                     <label for="email" class="sr-only">Email</label>
                     <input
                         id="email"
                         type="email"
                         name="email"
                         class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        :class="{
-                            'border-red-500 border-2': form.errors.email,
-                        }"
                         placeholder="Email"
                         v-model="form.email"
-                        autofocus
                         required
                     />
                 </div>
@@ -40,32 +45,31 @@
                     />
                 </div>
 
-                <div class="flex flex-row items-center justify-center gap-2">
-                    <label for="remember" class="font-extralight"
-                        >Remember me</label
+                <div class="flex flex-col gap-2">
+                    <label for="password_confirmation" class="sr-only"
+                        >Confirmar Password</label
                     >
                     <input
-                        id="remember"
-                        type="checkbox"
-                        name="remember"
-                        v-model="form.remember"
+                        id="password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        placeholder="Confirmar password"
+                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
+                        v-model="form.password_confirmation"
+                        required
                     />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <Button type="submit">Login</Button>
+                    <Button type="submit">Registrarse</Button>
                 </div>
             </form>
-
-            <div class="h-[0.5px] bg-gray-400 my-4" />
-
-            <Button @click="$inertia.visit('/register')">Registrarse</Button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import Button from "@/Components/Button.vue";
 
 defineProps({
@@ -76,17 +80,14 @@ defineProps({
 });
 
 const form = useForm({
+    name: null,
     email: null,
     password: null,
-    remember: false,
+    password_confirmation: null,
 });
 
 function submit() {
-    form.post("/login", {
-        onError: (errors) => {
-            form.reset("password");
-        },
-    });
+    router.post("/register", form);
 }
 </script>
 
