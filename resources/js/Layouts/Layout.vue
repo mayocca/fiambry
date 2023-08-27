@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="sticky top-0 flex gap-2 items-center justify-between px-4 py-2 mb-4 border-[0.5px] border-b-gray-400"
+        class="sticky top-0 flex flex-col sm:flex-row gap-2 items-center justify-between px-4 py-2 mb-4 border-[0.5px] border-b-gray-400"
     >
         <Link href="/">
             <span
@@ -13,7 +13,13 @@
         <Button v-if="!auth.user" @click="$inertia.visit('/login')"
             >Login</Button
         >
-        <Button v-else @click="$inertia.post('/logout')">Logout</Button>
+        <div v-else class="flex items-center gap-2">
+            <div class="flex flex-col text-sm leading-none">
+                <span class="font-light">Bienvenido</span
+                ><span class="font-bold">{{ auth.user.name }}</span>
+            </div>
+            <Button @click="$inertia.post('/logout')">Logout</Button>
+        </div>
     </nav>
     <slot />
 </template>
