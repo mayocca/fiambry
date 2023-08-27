@@ -22,26 +22,7 @@
 
         <span class="text-gray-500 font-light">Resumen del pedido</span>
 
-        <div
-            v-for="(product, index) in products_summary"
-            class="flex items-center space-x-2 justify-between border border-gray-200 rounded p-2 w-full max-w-[16rem]"
-            :key="index"
-        >
-            <span class="block w-full text-sm font-medium">
-                {{ product.name }}
-            </span>
-            <div class="border-l-[1px] border-gray-200 pl-2 w-12">
-                <span class="block w-full text-end font-medium font-mono">
-                    {{ product.total_quantity }}
-                </span>
-            </div>
-        </div>
-
-        <span
-            v-if="!products_summary.length"
-            class="text-gray-500 font-light text-sm italic"
-            >No hay productos en el pedido</span
-        >
+        <Summary :products="products_summary" />
     </div>
 </template>
 
@@ -59,6 +40,7 @@ defineProps({
 </script>
 
 <script>
+import Summary from "@/Components/Order/Summary.vue";
 import Layout from "@/Layouts/Layout.vue";
 
 export default {
