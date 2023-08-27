@@ -17,17 +17,22 @@
                     class="border border-gray-200 rounded px-4 py-1 w-64 text-xs font-light"
                     placeholder="Nombre"
                     type="text"
+                    :required="index !== form.allowed_products.length - 1"
                     @keypress="
                         index === form.allowed_products.length - 1 && addInput()
                     "
                 />
                 <button
-                    :disabled="form.allowed_products.length === 1"
+                    :disabled="
+                        form.allowed_products.length === 1 ||
+                        index === form.allowed_products.length - 1
+                    "
                     type="button"
                     class="text-red-300"
                     :class="{
                         'cursor-not-allowed':
-                            form.allowed_products.length === 1,
+                            form.allowed_products.length === 1 ||
+                            index === form.allowed_products.length - 1,
                     }"
                     tabindex="-1"
                     @click="removeInput(index)"
