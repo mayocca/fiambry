@@ -18,7 +18,9 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::resources([
-    'orders' => \App\Http\Controllers\OrderController::class,
-    'order.product' => \App\Http\Controllers\OrderProductController::class,
-]);
+Route::middleware('auth')->group(function () {
+    Route::resources([
+        'orders' => \App\Http\Controllers\OrderController::class,
+        'order.product' => \App\Http\Controllers\OrderProductController::class,
+    ]);
+});
