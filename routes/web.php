@@ -20,5 +20,5 @@ Route::get('/', function () {
 
 Route::resources([
     'orders' => \App\Http\Controllers\OrderController::class,
-    'order.product' => \App\Http\Controllers\OrderProductController::class,
+    'orders.products' => \App\Http\Controllers\OrderProductController::class,
 ]);

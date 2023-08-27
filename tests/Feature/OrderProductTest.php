@@ -16,7 +16,7 @@ it('can add a product to an order if the product is allowed', function () {
     $this->actingAs($this->user);
     $productToAdd = $this->allowedProducts->first();
 
-    $response = $this->post(route('order.product.store', $this->order), [
+    $response = $this->post(route('orders.products.store', $this->order), [
         'product_id' => $productToAdd->id,
         'quantity' => 2,
     ]);
@@ -32,7 +32,7 @@ it('cannot add a product to an order if the product is not allowed', function ()
     $this->actingAs($this->user);
     $notAllowedProduct = Product::factory()->create();
 
-    $response = $this->post(route('order.product.store', $this->order), [
+    $response = $this->post(route('orders.products.store', $this->order), [
         'product_id' => $notAllowedProduct->id,
         'quantity' => 2,
     ]);
@@ -53,7 +53,7 @@ it('can update the quantity of an existing product in an order', function () {
         'quantity' => 2,
     ]);
 
-    $response = $this->put(route('order.product.update', [$this->order, $productToUpdate]), [
+    $response = $this->put(route('orders.products.update', [$this->order, $productToUpdate]), [
         'quantity' => 3,
     ]);
 
@@ -73,7 +73,7 @@ it('can remove a product from an order', function () {
         'quantity' => 2,
     ]);
 
-    $response = $this->delete(route('order.product.destroy', [$this->order, $productToRemove]));
+    $response = $this->delete(route('orders.products.destroy', [$this->order, $productToRemove]));
 
     $response->assertSessionHas('success', 'Product removed from order.');
     $response->assertRedirect();
