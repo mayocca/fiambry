@@ -1,21 +1,14 @@
 <template>
-    <Link
+    <button
         class="relative block text-center px-4 py-1 bg-white text-black shadow-md gradient-border hover:shadow-lg"
-        :href="href"
+        @click="$emit('click')"
     >
         <slot />
-    </Link>
+    </button>
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
-
-defineProps({
-    href: {
-        type: String,
-        required: true,
-    },
-});
+defineEmits(["click"]);
 </script>
 
 <style scoped lang="scss">

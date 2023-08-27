@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <Button href="/orders/create">Crear pedido</Button>
+        <Button @click="$inertia.visit('/orders/create')">Crear pedido</Button>
     </div>
 </template>
 
