@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOrderProductRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class OrderProductController extends Controller
 {
@@ -28,7 +29,14 @@ class OrderProductController extends Controller
      */
     public function create(Order $order)
     {
-        //
+        return Inertia::render('Orders/Products/Create', [
+            'order' => $order->load([
+                'allowedProducts',
+                'products' => function ($query) {
+                    $query->where('user_id', request()->user()->id);
+                },
+            ]),
+        ]);
     }
 
     /**

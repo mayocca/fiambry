@@ -12,10 +12,18 @@
 
             <div class="flex flex-col items-center gap-4 row-[1/-1]">
                 <h2 class="text-gray-500">Resumen del pedido</h2>
-                <Summary :products="products_summary" />
+                <Summary>
+                    <SummaryItem
+                        v-for="(product, index) in products_summary"
+                        :key="index"
+                        :product="product"
+                    />
+                </Summary>
                 <Button
                     class="mt-auto"
-                    @click="$inertia.visit(`/orders/${order.id}/products`)"
+                    @click="
+                        $inertia.visit(`/orders/${order.id}/products/create`)
+                    "
                     >Agregar productos</Button
                 >
             </div>
@@ -52,6 +60,7 @@ defineProps({
 import Button from "@/Components/Button.vue";
 import OrderDetails from "@/Components/Order/Details.vue";
 import Summary from "@/Components/Order/Summary.vue";
+import SummaryItem from "@/Components/Order/SummaryItem.vue";
 import Layout from "@/Layouts/Layout.vue";
 
 export default {
