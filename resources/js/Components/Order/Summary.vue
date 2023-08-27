@@ -6,7 +6,7 @@
                 v-for="(product, index) in products"
                 :key="index"
             >
-                <span class="col-[1/5] text-sm">
+                <span class="col-[1_/_span_4] text-sm">
                     {{ product.name }}
                 </span>
 
