@@ -10,7 +10,10 @@
             </span>
         </Link>
 
-        <Button href="/login">Login</Button>
+        <Button v-if="!auth.user" @click="$inertia.visit('/login')"
+            >Login</Button
+        >
+        <Button v-else @click="$inertia.post('/logout')">Logout</Button>
     </nav>
     <slot />
 </template>
@@ -18,4 +21,8 @@
 <script setup>
 import Button from "@/Components/Button.vue";
 import { Link } from "@inertiajs/vue3";
+
+defineProps({
+    auth: Object,
+});
 </script>

@@ -1,11 +1,11 @@
 <template>
     <!-- Card -->
     <div
-        class="flex flex-col m-auto gap-4 max-w-prose border-[0.5px] border-gray-400 rounded-md shadow-md p-4"
+        class="flex flex-col m-auto gap-4 w-96 border-[0.5px] border-gray-400 rounded-md shadow-md p-8"
     >
         <h1 class="text-2xl font-bold text-center">Login</h1>
 
-        <form class="flex flex-col gap-4 p-4" @submit.prevent="submit">
+        <form class="flex flex-col gap-4" @submit.prevent="submit">
             <div class="flex flex-col gap-2">
                 <label for="email" class="sr-only">Email</label>
                 <input
@@ -46,12 +46,7 @@
             </div>
 
             <div class="flex flex-col gap-2">
-                <Button
-                    class="relative block text-center px-4 py-1 bg-white text-black shadow-md gradient-border hover:shadow-lg"
-                    type="submit"
-                >
-                    Login
-                </Button>
+                <Button type="submit">Login</Button>
             </div>
         </form>
     </div>
