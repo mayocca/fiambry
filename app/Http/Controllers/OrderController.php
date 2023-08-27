@@ -37,6 +37,7 @@ class OrderController extends Controller
     {
         $order = Order::create([
             'user_id' => $request->user()->id,
+            'details' => $request->details,
         ]);
 
         $allowedProducts = collect($request->allowed_products)
@@ -56,7 +57,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return Inertia::render('Orders/Show', [
-            'order' => $order,
+            'order' => $order->load('user'),
             'products_summary' => $order->productsSummary(),
         ]);
     }

@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->cascadeOnDelete();
 
-            $table->string('code', 10)->unique();
+            $table->string('details')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

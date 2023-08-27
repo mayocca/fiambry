@@ -2,11 +2,11 @@
     <div
         class="flex flex-col items-center gap-4 max-w-prose m-auto border-y-2 sm:border-x-2 sm:rounded border-gray-200 p-4"
     >
-        <h1 class="text-2xl font-light">Crear pedido</h1>
-        <span class="text-gray-500 font-light"
-            >Agrega los productos que estarán disponibles en el pedido</span
-        >
-        <form @submit.prevent="submit" class="flex flex-col gap-2">
+        <h1 class="text-2xl font-medium">Crear pedido</h1>
+        <form @submit.prevent="submit" class="flex flex-col items-center gap-2">
+            <span class="text-gray-500 font-light"
+                >Agrega los productos que estarán disponibles en el pedido</span
+            >
             <div
                 v-for="(product, index) in form.allowed_products"
                 class="flex items-center space-x-2"
@@ -14,7 +14,7 @@
             >
                 <input
                     v-model="product.name"
-                    class="border border-gray-200 rounded p-2 w-64"
+                    class="border border-gray-200 rounded px-4 py-1 w-64 text-xs font-light"
                     placeholder="Nombre"
                     type="text"
                     @keypress="
@@ -49,6 +49,17 @@
                 </button>
             </div>
 
+            <span class="text-gray-500 font-light mt-8"
+                >Agrega una descripción del pedido</span
+            >
+
+            <textarea
+                v-model="form.details"
+                class="border border-gray-200 rounded p-2 w-full resize-none text-sm"
+                placeholder="Detalles, instrucciones de pago, etc."
+                rows="3"
+            ></textarea>
+
             <Button type="submit">Confirmar</Button>
         </form>
     </div>
@@ -61,6 +72,7 @@ import Button from "@/Components/Button.vue";
 
 const form = reactive({
     allowed_products: [{ name: "" }],
+    details: null,
 });
 
 function submit() {
@@ -68,7 +80,7 @@ function submit() {
         (product) => product.name !== ""
     );
 
-    router.post("/orders", { allowed_products });
+    router.post("/orders", { ...form, allowed_products });
 }
 
 function addInput() {

@@ -18,6 +18,7 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => \App\Models\User::factory(),
+            'details' => $this->faker->text,
         ];
     }
 }

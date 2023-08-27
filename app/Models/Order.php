@@ -25,21 +25,8 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'details'
     ];
-
-    /**
-     * The "boot" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function (Order $order) {
-            $order->code = Str::upper(Str::random(12));
-        });
-    }
 
     /**
      * Generate a new UUID for the model.

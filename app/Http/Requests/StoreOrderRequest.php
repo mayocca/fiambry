@@ -25,6 +25,7 @@ class StoreOrderRequest extends FormRequest
             'allowed_products' => ['required', 'array'],
             'allowed_products.*' => ['required', 'array:name'],
             'allowed_products.*.name' => ['required', 'string', 'max:255'],
+            'details' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
