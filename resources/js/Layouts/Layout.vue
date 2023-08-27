@@ -9,13 +9,13 @@
             >
         </Link>
 
-        <Button v-if="!auth.user" @click="$inertia.visit('/login')"
+        <Button v-if="!$page.props.auth.user" @click="$inertia.visit('/login')"
             >Login</Button
         >
         <div v-else class="flex items-center gap-2">
             <div class="flex flex-col text-sm leading-none">
                 <span class="font-light">Bienvenido</span
-                ><span class="font-bold">{{ auth.user.name }}</span>
+                ><span class="font-bold">{{ $page.props.auth.user.name }}</span>
             </div>
             <Button @click="$inertia.post('/logout')">Logout</Button>
         </div>
@@ -26,8 +26,4 @@
 <script setup>
 import Button from "@/Components/Button.vue";
 import { Link } from "@inertiajs/vue3";
-
-defineProps({
-    auth: Object,
-});
 </script>

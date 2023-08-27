@@ -13,6 +13,23 @@
             <div class="flex flex-col items-center gap-4 row-[1/-1]">
                 <h2 class="text-gray-500">Resumen del pedido</h2>
                 <Summary :products="products_summary" />
+                <Button
+                    class="mt-auto"
+                    @click="$inertia.visit(`/orders/${order.id}/products`)"
+                    >Agregar productos</Button
+                >
+            </div>
+
+            <div
+                v-if="order.user_id === $page.props.auth.user?.id"
+                class="flex flex-col items-center gap-4 mt-auto ms-auto"
+            >
+                <Button class="w-full" @click="$inertia.visit('/orders')">
+                    Editar detalles
+                </Button>
+                <Button class="w-full" @click="$inertia.visit('/orders')">
+                    Finalizar
+                </Button>
             </div>
         </div>
     </div>
@@ -32,6 +49,7 @@ defineProps({
 </script>
 
 <script>
+import Button from "@/Components/Button.vue";
 import OrderDetails from "@/Components/Order/Details.vue";
 import Summary from "@/Components/Order/Summary.vue";
 import Layout from "@/Layouts/Layout.vue";
