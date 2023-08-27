@@ -7,14 +7,14 @@ use App\Models\Product;
 it('creates an order and associates allowed products', function () {
     // Given: An authenticated user and some products
     $user = User::factory()->create();
-    $products = Product::factory()->count(3)->create();
+    $products = Product::factory()->count(3)->make();
 
     // Setup user to be authenticated
     $this->actingAs($user);
 
     // When: We hit the store route for the order with a set of allowed products
     $response = $this->post(route('orders.store'), [
-        'allowed_products' => $products->map(fn (Product $product) => ['id' => $product->id])->toArray(),
+        'allowed_products' => $products->map(fn (Product $product) => ['name' => $product->name])->toArray(),
     ]);
 
     // Then: The order should be created and associated with the given products
@@ -24,8 +24,8 @@ it('creates an order and associates allowed products', function () {
     $order = Order::first();
     expect($order->allowedProducts)->toHaveCount(3);
 
-    $allowedProductIds = $order->allowedProducts->pluck('id')->toArray();
+    $allowedProductNames = $order->allowedProducts->pluck('name')->toArray();
     foreach ($products as $product) {
-        expect($allowedProductIds)->toContain($product->id);
+        expect($allowedProductNames)->toContain($product->name);
     }
 });
