@@ -13,7 +13,7 @@
                 <span
                     class="border-s border-gray-300 font-mono font-bold text-end text-sm"
                 >
-                    {{ product.total_quantity.toLocaleString() }}
+                    {{ product.quantity.toLocaleString() }}
                 </span>
             </li>
         </ul>

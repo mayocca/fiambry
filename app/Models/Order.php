@@ -82,7 +82,7 @@ class Order extends Model
                 return [
                     'id' => $productGroup[0]->id,
                     'name' => $productGroup[0]->name,
-                    'total_quantity' => $productGroup->sum('pivot.quantity')
+                    'quantity' => $productGroup->sum('pivot.quantity')
                 ];
             })
             ->values();
