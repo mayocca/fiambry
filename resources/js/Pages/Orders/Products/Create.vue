@@ -1,35 +1,60 @@
 <template>
     <Head title="Agregar productos" />
 
-    <div class="p-4">
-        <n-page-header @back="$inertia.visit(`/orders/${order.id}`)">
-            <template #title>
-                <span class="text-2xl font-light">Agregar productos</span>
-            </template>
-        </n-page-header>
+    <n-page-header @back="$inertia.visit(`/orders/${order.id}`)" class="m-4">
+        <template #title>
+            <span class="text-2xl font-light">Agregar productos</span>
+        </template>
+    </n-page-header>
 
-        <n-card title="Mis productos" class="max-w-prose m-auto">
-            <div class="flex flex-col items-center gap-4 w-full row-[1/-1]">
-                <Summary>
-                    <SummaryItem
-                        v-for="(product, index) in myProducts"
-                        :key="index"
-                        :product="product"
-                    />
-                </Summary>
-                <n-button @click="$inertia.visit(`/orders/${order.id}`)"
-                    >Volver</n-button
-                >
-            </div>
+    <div class="px-4">
+        <n-card title="Mis productos" class="max-w-prose">
+            <n-space vertical>
+                <template v-for="(product, index) in products" :key="index">
+                    <n-input-group>
+                        <n-input-group-label class="w-[48ch]">{{
+                            product.name
+                        }}</n-input-group-label>
+                        <n-input-number
+                            v-model:value="product.quantity"
+                            class="w-full"
+                            :default-value="0"
+                            :validator="(value) => value >= 0"
+                        />
+                    </n-input-group>
+                </template>
+
+                <n-space justify="end">
+                    <n-button
+                        type="error"
+                        ghost
+                        @click="$inertia.visit(`/orders/${order.id}`)"
+                    >
+                        Cancelar
+                    </n-button>
+
+                    <n-button type="primary" attr-type="submit">
+                        Confirmar
+                    </n-button>
+                </n-space>
+            </n-space>
         </n-card>
     </div>
 </template>
 
 <script setup>
-import Summary from "@/Components/Order/Summary.vue";
-import SummaryItem from "@/Components/Order/SummaryItem.vue";
-import { computed } from "vue";
-import { NButton, NCard, NPageHeader } from "naive-ui";
+import { reactive } from "vue";
+import {
+    NButton,
+    NCard,
+    NGrid,
+    NGridItem,
+    NInputGroup,
+    NInputGroupLabel,
+    NInputNumber,
+    NPageHeader,
+    NSpace,
+} from "naive-ui";
 import { Head } from "@inertiajs/vue3";
 
 const { order } = defineProps({
@@ -39,17 +64,13 @@ const { order } = defineProps({
     },
 });
 
-const myProducts = computed(() => {
-    return order.allowed_products.map((product) => {
-        return {
-            id: product.id,
-            name: product.name,
-            quantity:
-                order.products.find(
-                    (orderProduct) => orderProduct.id === product.id
-                )?.pivot.quantity || 0,
-        };
-    });
+const { products } = reactive({
+    products: order.allowed_products.map((product) => ({
+        ...product,
+        quantity:
+            order.products.find((p) => p.id === product.id)?.pivot?.quantity ||
+            0,
+    })),
 });
 </script>
 
