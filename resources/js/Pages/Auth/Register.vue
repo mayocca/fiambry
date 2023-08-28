@@ -1,8 +1,6 @@
 <template>
     <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <div
-            class="flex flex-col border-[0.5px] border-gray-300 rounded-sm shadow-md p-8 mx-4"
-        >
+        <n-card>
             <form class="flex flex-col gap-4" @submit.prevent="submit">
                 <h1 class="text-2xl font-bold text-center">Registrarse</h1>
                 <div class="flex flex-col gap-2">
@@ -66,13 +64,13 @@
                     >
                 </div>
             </form>
-        </div>
+        </n-card>
     </div>
 </template>
 
 <script setup>
 import { router, useForm } from "@inertiajs/vue3";
-import { NButton } from "naive-ui";
+import { NButton, NCard } from "naive-ui";
 
 defineProps({
     errors: {

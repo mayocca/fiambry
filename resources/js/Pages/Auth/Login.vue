@@ -1,8 +1,6 @@
 <template>
     <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <div
-            class="flex flex-col border-[0.5px] border-gray-300 rounded-sm shadow-md p-8 mx-4"
-        >
+        <n-card>
             <form class="flex flex-col gap-4" @submit.prevent="submit">
                 <h1 class="text-2xl font-bold text-center">Login</h1>
                 <div class="flex flex-col gap-2">
@@ -53,25 +51,27 @@
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <n-button type="primary" attr-type="submit">Login</n-button>
+                    <n-button type="primary" attr-type="submit"
+                        >Iniciar sesión</n-button
+                    >
                 </div>
+
+                <div class="h-[0.5px] bg-gray-400 my-2" />
+
+                <n-button
+                    secondary
+                    type="primary"
+                    @click="$inertia.visit('/register')"
+                    >Registrarse</n-button
+                >
             </form>
-
-            <div class="h-[0.5px] bg-gray-400 my-4" />
-
-            <n-button
-                secondary
-                type="primary"
-                @click="$inertia.visit('/register')"
-                >Registrarse</n-button
-            >
-        </div>
+        </n-card>
     </div>
 </template>
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import { NButton } from "naive-ui";
+import { NButton, NCard } from "naive-ui";
 
 defineProps({
     errors: {
