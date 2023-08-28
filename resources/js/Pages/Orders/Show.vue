@@ -1,4 +1,5 @@
 <template>
+    <Head :title="`Pedido de ${order.user.name}`" />
     <div
         class="flex flex-col items-center gap-4 max-w-prose m-auto border-y-2 sm:border-x-2 sm:rounded border-gray-200 p-4"
     >
@@ -61,6 +62,7 @@ import OrderDetails from "@/Components/Order/Details.vue";
 import Summary from "@/Components/Order/Summary.vue";
 import SummaryItem from "@/Components/Order/SummaryItem.vue";
 import Layout from "@/Layouts/Layout.vue";
+import { Head } from "@inertiajs/vue3";
 import { NButton } from "naive-ui";
 
 export default {

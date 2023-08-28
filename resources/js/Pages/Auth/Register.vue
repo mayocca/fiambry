@@ -1,4 +1,5 @@
 <template>
+    <Head title="Registrarse" />
     <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
         <n-card>
             <form class="flex flex-col gap-4" @submit.prevent="submit">
@@ -69,7 +70,7 @@
 </template>
 
 <script setup>
-import { router, useForm } from "@inertiajs/vue3";
+import { Head, router, useForm } from "@inertiajs/vue3";
 import { NButton, NCard } from "naive-ui";
 
 defineProps({
@@ -93,7 +94,6 @@ function submit() {
 
 <script>
 import Layout from "@/Layouts/Layout.vue";
-import { router } from "@inertiajs/vue3";
 
 export default {
     layout: Layout,

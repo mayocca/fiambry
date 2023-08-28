@@ -1,4 +1,5 @@
 <template>
+    <Head title="Agregar productos" />
     <div
         class="flex flex-col items-center gap-4 max-w-prose m-auto border-y-2 sm:border-x-2 sm:rounded border-gray-200 p-4"
     >
@@ -26,7 +27,9 @@
 import Summary from "@/Components/Order/Summary.vue";
 import SummaryItem from "@/Components/Order/SummaryItem.vue";
 import { ArrowBack } from "@vicons/ionicons5";
+import { computed } from "vue";
 import { NButton } from "naive-ui";
+import { Head } from "@inertiajs/vue3";
 
 const { order } = defineProps({
     order: {
@@ -51,7 +54,6 @@ const myProducts = computed(() => {
 
 <script>
 import Layout from "@/Layouts/Layout.vue";
-import { computed } from "vue";
 
 export default {
     layout: Layout,

@@ -1,4 +1,5 @@
 <template>
+    <Head title="Crear pedido" />
     <div
         class="flex flex-col items-center gap-4 max-w-prose m-auto border-y-2 sm:border-x-2 sm:rounded border-gray-200 p-4"
     >
@@ -72,7 +73,7 @@
 
 <script setup>
 import { reactive } from "vue";
-import { router } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 import { NButton } from "naive-ui";
 
 const form = reactive({
