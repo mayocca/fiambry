@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOrderProductRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class OrderProductController extends Controller
@@ -44,12 +45,11 @@ class OrderProductController extends Controller
      */
     public function store(StoreOrderProductRequest $request, Order $order)
     {
-        $order->products()->attach($request->product_id, [
-            'user_id' => $request->user()->id,
-            'quantity' => $request->quantity,
-        ]);
+        $order->products()
+            ->wherePivot('user_id', $request->user()->id)
+            ->sync($request->products);
 
-        return redirect()->route('orders.show', $order)->with('success', 'Product added to order.');
+        return Redirect::route('orders.show', $order)->with('success', 'Products saved.');
     }
 
     /**

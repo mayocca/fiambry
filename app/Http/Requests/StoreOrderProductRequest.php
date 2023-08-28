@@ -23,12 +23,28 @@ class StoreOrderProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => [
+            'products' => ['nullable', 'array'],
+            'products.*' => ['array:id,quantity'],
+            'products.*.id' => [
                 'required',
-                Rule::unique('order_product', 'product_id')->where('order_id', $this->order->id)->where('user_id', $this->user()->id),
                 Rule::exists('allowed_products', 'product_id')->where('order_id', $this->order->id),
             ],
-            'quantity' => ['required', 'integer', 'min:1'],
+            'products.*.quantity' => ['required', 'integer', 'min:1'],
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     */
+    public function passedValidation(): void
+    {
+        $this->merge([
+            'products' => collect($this->products)->mapWithKeys(function ($product) {
+                return [$product['id'] => [
+                    'quantity' => $product['quantity'],
+                    'user_id' => $this->user()->id,
+                ]];
+            })->toArray(),
+        ]);
     }
 }

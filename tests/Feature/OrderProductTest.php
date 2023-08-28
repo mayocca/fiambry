@@ -17,11 +17,12 @@ it('can add a product to an order if the product is allowed', function () {
     $productToAdd = $this->allowedProducts->first();
 
     $response = $this->post(route('orders.products.store', $this->order), [
-        'product_id' => $productToAdd->id,
-        'quantity' => 2,
+        'products' => [
+            ['id' => $productToAdd->id, 'quantity' => 2],
+        ],
     ]);
 
-    $response->assertSessionHas('success', 'Product added to order.');
+    $response->assertSessionHas('success', 'Products saved.');
     $response->assertRedirect();
 
     expect($this->order->products->pluck('id'))
@@ -33,8 +34,9 @@ it('cannot add a product to an order if the product is not allowed', function ()
     $notAllowedProduct = Product::factory()->create();
 
     $response = $this->post(route('orders.products.store', $this->order), [
-        'product_id' => $notAllowedProduct->id,
-        'quantity' => 2,
+        'products' => [
+            ['id' => $notAllowedProduct->id, 'quantity' => 2],
+        ],
     ]);
 
     $response->assertSessionHasErrors();
