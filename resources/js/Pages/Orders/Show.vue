@@ -1,9 +1,14 @@
 <template>
     <Head :title="`Pedido de ${order.user.name}`" />
-    <div
-        class="flex flex-col items-center gap-4 max-w-prose m-auto border-y-2 sm:border-x-2 sm:rounded border-gray-200 p-4"
-    >
-        <h1 class="text-2xl">Pedido</h1>
+
+    <div class="p-4">
+        <n-page-header @back="router.visit('/')">
+            <template #title>
+                <span class="text-2xl font-light"
+                    >Pedido de {{ order.user.name }}</span
+                >
+            </template>
+        </n-page-header>
 
         <div class="flex flex-col sm:grid sm:grid-rows-2 sm:grid-cols-2 gap-4">
             <div class="flex flex-col items-center gap-4">
@@ -62,8 +67,8 @@ import OrderDetails from "@/Components/Order/Details.vue";
 import Summary from "@/Components/Order/Summary.vue";
 import SummaryItem from "@/Components/Order/SummaryItem.vue";
 import Layout from "@/Layouts/Layout.vue";
-import { Head } from "@inertiajs/vue3";
-import { NButton } from "naive-ui";
+import { Head, router } from "@inertiajs/vue3";
+import { NButton, NPageHeader } from "naive-ui";
 
 export default {
     layout: Layout,

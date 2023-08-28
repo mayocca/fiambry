@@ -2,7 +2,7 @@
     <n-layout>
         <n-layout-header>
             <nav
-                class="sticky top-0 flex flex-col sm:flex-row gap-2 items-center justify-between px-4 py-2 mb-4 bg-white border-[0.5px] border-b-gray-400"
+                class="sticky top-0 flex flex-col sm:flex-row gap-2 items-center justify-between px-4 py-2 bg-white border-[0.5px] border-b-gray-400"
             >
                 <Link href="/">
                     <span
