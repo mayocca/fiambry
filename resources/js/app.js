@@ -3,6 +3,10 @@ import "../css/app.css";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 
+const meta = document.createElement("meta");
+meta.name = "naive-ui-style";
+document.head.appendChild(meta);
+
 createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });

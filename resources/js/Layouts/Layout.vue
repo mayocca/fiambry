@@ -9,21 +9,32 @@
             >
         </Link>
 
-        <Button v-if="!$page.props.auth.user" @click="$inertia.visit('/login')"
-            >Login</Button
+        <n-button
+            v-if="!$page.props.auth.user"
+            type="primary"
+            @click="$inertia.visit('/login')"
+            ><template #icon>
+                <n-icon> <LogIn /> </n-icon></template
+            >Login</n-button
         >
+
         <div v-else class="flex items-center gap-2">
             <div class="flex flex-col text-sm leading-none">
                 <span class="font-light">Bienvenido</span
                 ><span class="font-bold">{{ $page.props.auth.user.name }}</span>
             </div>
-            <Button @click="$inertia.post('/logout')">Logout</Button>
+            <n-button type="primary" @click="$inertia.post('/logout')"
+                ><template #icon>
+                    <n-icon> <LogOut /> </n-icon></template
+                >Logout</n-button
+            >
         </div>
     </nav>
     <slot />
 </template>
 
 <script setup>
-import Button from "@/Components/Button.vue";
 import { Link } from "@inertiajs/vue3";
+import { LogIn, LogOut } from "@vicons/ionicons5";
+import { NButton, NIcon } from "naive-ui";
 </script>

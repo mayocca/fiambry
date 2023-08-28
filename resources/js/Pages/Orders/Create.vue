@@ -65,7 +65,7 @@
                 rows="3"
             ></textarea>
 
-            <Button type="submit">Confirmar</Button>
+            <n-button type="primary" attr-type="submit">Confirmar</n-button>
         </form>
     </div>
 </template>
@@ -73,7 +73,7 @@
 <script setup>
 import { reactive } from "vue";
 import { router } from "@inertiajs/vue3";
-import Button from "@/Components/Button.vue";
+import { NButton } from "naive-ui";
 
 const form = reactive({
     allowed_products: [{ name: "" }],

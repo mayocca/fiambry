@@ -1,11 +1,13 @@
 <template>
     <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <Button @click="$inertia.visit('/orders/create')">Crear pedido</Button>
+        <n-button type="primary" @click="$inertia.visit('/orders/create')"
+            >Crear pedido</n-button
+        >
     </div>
 </template>
 
 <script setup>
-import Button from "@/Components/Button.vue";
+import { NButton } from "naive-ui";
 </script>
 
 <script>

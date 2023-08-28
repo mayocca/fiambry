@@ -61,7 +61,9 @@
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <Button type="submit">Registrarse</Button>
+                    <n-button type="primary" attr-type="submit"
+                        >Registrarse</n-button
+                    >
                 </div>
             </form>
         </div>
@@ -70,7 +72,7 @@
 
 <script setup>
 import { router, useForm } from "@inertiajs/vue3";
-import Button from "@/Components/Button.vue";
+import { NButton } from "naive-ui";
 
 defineProps({
     errors: {

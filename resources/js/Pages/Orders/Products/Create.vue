@@ -13,17 +13,20 @@
                     :product="product"
                 />
             </Summary>
-            <Button @click="$inertia.visit(`/orders/${order.id}`)"
-                >Volver</Button
+            <n-button
+                :render-icon="ArrowBack"
+                @click="$inertia.visit(`/orders/${order.id}`)"
+                >Volver</n-button
             >
         </div>
     </div>
 </template>
 
 <script setup>
-import Button from "@/Components/Button.vue";
 import Summary from "@/Components/Order/Summary.vue";
 import SummaryItem from "@/Components/Order/SummaryItem.vue";
+import { ArrowBack } from "@vicons/ionicons5";
+import { NButton } from "naive-ui";
 
 const { order } = defineProps({
     order: {

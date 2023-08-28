@@ -19,12 +19,12 @@
                         :product="product"
                     />
                 </Summary>
-                <Button
-                    class="mt-auto"
+                <n-button
+                    type="info"
                     @click="
                         $inertia.visit(`/orders/${order.id}/products/create`)
                     "
-                    >Agregar productos</Button
+                    >Agregar productos</n-button
                 >
             </div>
 
@@ -32,12 +32,12 @@
                 v-if="order.user_id === $page.props.auth.user?.id"
                 class="flex flex-col items-center gap-4 mt-auto ms-auto"
             >
-                <Button class="w-full" @click="$inertia.visit('/orders')">
+                <n-button type="info" @click="$inertia.visit('/orders')">
                     Editar detalles
-                </Button>
-                <Button class="w-full" @click="$inertia.visit('/orders')">
+                </n-button>
+                <n-button type="primary" @click="$inertia.visit('/orders')">
                     Finalizar
-                </Button>
+                </n-button>
             </div>
         </div>
     </div>
@@ -57,11 +57,11 @@ defineProps({
 </script>
 
 <script>
-import Button from "@/Components/Button.vue";
 import OrderDetails from "@/Components/Order/Details.vue";
 import Summary from "@/Components/Order/Summary.vue";
 import SummaryItem from "@/Components/Order/SummaryItem.vue";
 import Layout from "@/Layouts/Layout.vue";
+import { NButton } from "naive-ui";
 
 export default {
     layout: Layout,

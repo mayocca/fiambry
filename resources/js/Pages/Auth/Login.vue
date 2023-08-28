@@ -53,20 +53,25 @@
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <Button type="submit">Login</Button>
+                    <n-button type="primary" attr-type="submit">Login</n-button>
                 </div>
             </form>
 
             <div class="h-[0.5px] bg-gray-400 my-4" />
 
-            <Button @click="$inertia.visit('/register')">Registrarse</Button>
+            <n-button
+                secondary
+                type="primary"
+                @click="$inertia.visit('/register')"
+                >Registrarse</n-button
+            >
         </div>
     </div>
 </template>
 
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import Button from "@/Components/Button.vue";
+import { NButton } from "naive-ui";
 
 defineProps({
     errors: {
