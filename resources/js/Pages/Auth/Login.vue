@@ -1,98 +1,61 @@
 <template>
-    <Head title="Login" />
-    <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <n-card>
-            <form class="flex flex-col gap-4" @submit.prevent="submit">
-                <h1 class="text-2xl font-bold text-center">Login</h1>
-                <div class="flex flex-col gap-2">
-                    <span
-                        v-if="form.errors.email"
-                        class="text-red-500 text-[0.6rem] text-center"
-                        >{{ form.errors.email }}</span
-                    >
-                    <label for="email" class="sr-only">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        :class="{
-                            'border-red-500 border-2': form.errors.email,
-                        }"
-                        placeholder="Email"
-                        v-model="form.email"
-                        autofocus
-                        required
-                    />
-                </div>
+  <Head title="Login" />
+  <div class="p-4 sm:p-20 h-[80vh] m-auto gap-4 max-w-prose">
+    <n-card>
+      <n-form :model="form" :show-label="true">
+        <h1 class="text-2xl font-bold text-center">Login</h1>
 
-                <div class="flex flex-col gap-2">
-                    <label for="password" class="sr-only">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        v-model="form.password"
-                        required
-                    />
-                </div>
+        <n-form-item path="email" label="Email">
+          <n-input v-model:value="form.email" placeholder="john.doe@example.com" autofocus />
+        </n-form-item>
 
-                <div class="flex flex-row items-center justify-center gap-2">
-                    <label for="remember" class="font-extralight"
-                        >Remember me</label
-                    >
-                    <input
-                        id="remember"
-                        type="checkbox"
-                        name="remember"
-                        v-model="form.remember"
-                    />
-                </div>
+        <n-form-item path="password" label="Password">
+          <n-input v-model:value="form.password" type="password" placeholder="password" />
+        </n-form-item>
 
-                <div class="flex flex-col gap-2">
-                    <n-button type="primary" attr-type="submit"
-                        >Iniciar sesión</n-button
-                    >
-                </div>
-
-                <div class="h-[0.5px] bg-gray-400 my-2" />
-
-                <n-button
-                    secondary
-                    type="primary"
-                    @click="$inertia.visit('/register')"
-                    >Registrarse</n-button
-                >
-            </form>
-        </n-card>
-    </div>
+        <n-form-item
+          path="remember"
+          label="Recordarme"
+          show-label
+          label-placement="left"
+          :show-feedback="false"
+        >
+          <n-checkbox v-model:checked="form.remember" />
+        </n-form-item>
+        <n-space justify="space-between" class="mt-4">
+          <n-button secondary type="primary" @click="$inertia.visit('/register')"
+            >Registrarse</n-button
+          >
+          <n-button type="primary" attr-type="submit" @click="submit">Iniciar sesión</n-button>
+        </n-space>
+      </n-form>
+    </n-card>
+  </div>
 </template>
 
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
-import { NButton, NCard } from "naive-ui";
+import { NButton, NCard, NCheckbox, NForm, NFormItem, NInput, NSpace } from "naive-ui";
 
 defineProps({
-    errors: {
-        type: Object,
-        required: true,
-    },
+  errors: {
+    type: Object,
+    required: true,
+  },
 });
 
 const form = useForm({
-    email: null,
-    password: null,
-    remember: false,
+  email: null,
+  password: null,
+  remember: false,
 });
 
 function submit() {
-    form.post("/login", {
-        onError: (errors) => {
-            form.reset("password");
-        },
-    });
+  form.post("/login", {
+    onError: (errors) => {
+      form.reset("password");
+    },
+  });
 }
 </script>
 
@@ -100,6 +63,6 @@ function submit() {
 import Layout from "@/Layouts/Layout.vue";
 
 export default {
-    layout: Layout,
+  layout: Layout,
 };
 </script>
