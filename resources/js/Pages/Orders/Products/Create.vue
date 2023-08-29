@@ -9,17 +9,19 @@
 
   <div class="px-4">
     <n-card title="Mis productos" class="max-w-prose">
-      <template v-for="(product, index) in products" :key="index">
-        <n-input-group>
-          <n-input-group-label class="w-[48ch]">{{ product.name }}</n-input-group-label>
-          <n-input-number
-            v-model:value="product.quantity"
-            class="w-full"
-            :default-value="0"
-            :validator="(value) => value >= 0"
-          />
-        </n-input-group>
-      </template>
+      <div class="flex flex-col gap-2">
+        <template v-for="(product, index) in products" :key="index">
+          <n-input-group class="flex">
+            <n-input-group-label class="flex-grow">{{ product.name }}</n-input-group-label>
+            <n-input-number
+              v-model:value="product.quantity"
+              class="w-[10ch]"
+              :default-value="0"
+              :validator="(value) => value >= 0"
+            />
+          </n-input-group>
+        </template>
+      </div>
 
       <template #action>
         <n-space justify="end">
