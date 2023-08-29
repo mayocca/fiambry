@@ -82,6 +82,10 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
+        $order->update([
+            'details' => $request->details,
+        ]);
+
         $order->allowedProducts()->sync($request->allowed_products);
 
         return Redirect::route('orders.show', $order)->with('success', 'Order updated.');
