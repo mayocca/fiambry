@@ -69,13 +69,13 @@ const form = useForm({
     ...order.allowed_products.map((product) => ({ name: product.name })),
     { name: "" },
   ],
-  details: null,
+  details: order.details,
 });
 
 function submit() {
   let allowed_products = form.allowed_products.filter((product) => product.name !== "");
 
-  router.put(`/orders/${order.id}`, { ...form, allowed_products });
+  router.put(`/orders/${order.id}`, { allowed_products, details: form.details });
 }
 
 function addInput() {
