@@ -1,7 +1,7 @@
 <template>
   <Head title="Agregar productos" />
 
-  <n-page-header class="m-4" @back="$inertia.visit(`/orders/${order.id}`)">
+  <n-page-header class="m-4" @back="router.visit(`/orders/${order.id}`)">
     <template #title>
       <span class="text-2xl font-light">Agregar productos</span>
     </template>
@@ -9,19 +9,19 @@
 
   <div class="px-4">
     <n-card title="Mis productos" class="max-w-prose">
-      <n-space vertical>
-        <template v-for="(product, index) in products" :key="index">
-          <n-input-group>
-            <n-input-group-label class="w-[48ch]">{{ product.name }}</n-input-group-label>
-            <n-input-number
-              v-model:value="product.quantity"
-              class="w-full"
-              :default-value="0"
-              :validator="(value) => value >= 0"
-            />
-          </n-input-group>
-        </template>
+      <template v-for="(product, index) in products" :key="index">
+        <n-input-group>
+          <n-input-group-label class="w-[48ch]">{{ product.name }}</n-input-group-label>
+          <n-input-number
+            v-model:value="product.quantity"
+            class="w-full"
+            :default-value="0"
+            :validator="(value) => value >= 0"
+          />
+        </n-input-group>
+      </template>
 
+      <template #action>
         <n-space justify="end">
           <n-button type="error" ghost @click="$inertia.visit(`/orders/${order.id}`)">
             Cancelar
@@ -29,7 +29,7 @@
 
           <n-button type="primary" @click="save">Confirmar</n-button>
         </n-space>
-      </n-space>
+      </template>
     </n-card>
   </div>
 </template>
@@ -39,8 +39,6 @@ import { reactive } from "vue";
 import {
   NButton,
   NCard,
-  NGrid,
-  NGridItem,
   NInputGroup,
   NInputGroupLabel,
   NInputNumber,
