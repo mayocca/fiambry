@@ -13,7 +13,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->order->user_id === $this->user()->id;
     }
 
     /**
