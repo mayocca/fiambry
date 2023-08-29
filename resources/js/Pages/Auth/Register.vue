@@ -1,94 +1,76 @@
 <template>
-    <Head title="Registrarse" />
-    <div class="flex flex-col m-auto gap-4 max-w-fit min-h-[80vh]">
-        <n-card>
-            <form class="flex flex-col gap-4" @submit.prevent="submit">
-                <h1 class="text-2xl font-bold text-center">Registrarse</h1>
-                <div class="flex flex-col gap-2">
-                    <label for="name" class="sr-only">Nombre</label>
-                    <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        placeholder="Nombre"
-                        v-model="form.name"
-                        autofocus
-                        required
-                    />
-                </div>
+  <Head title="Registrarse" />
+  <div class="p-4 sm:p-20 h-[80vh] m-auto gap-4 max-w-prose">
+    <n-card>
+      <n-form :model="form" :show-label="true">
+        <h1 class="text-2xl font-bold text-center">Registrarse</h1>
 
-                <div class="flex flex-col gap-2">
-                    <label for="email" class="sr-only">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        placeholder="Email"
-                        v-model="form.email"
-                        required
-                    />
-                </div>
+        <n-form-item
+          path="name"
+          label="Nombre"
+          :validation-status="$page.props.errors.name ? 'error' : null"
+          :feedback="$page.props.errors.name ?? null"
+        >
+          <n-input v-model:value="form.name" placeholder="John Doe" autofocus />
+        </n-form-item>
 
-                <div class="flex flex-col gap-2">
-                    <label for="password" class="sr-only">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        v-model="form.password"
-                        required
-                    />
-                </div>
+        <n-form-item
+          path="email"
+          label="Email"
+          :validation-status="$page.props.errors.email ? 'error' : null"
+          :feedback="$page.props.errors.email ?? null"
+        >
+          <n-input v-model:value="form.email" placeholder="john.doe@example.com" />
+        </n-form-item>
 
-                <div class="flex flex-col gap-2">
-                    <label for="password_confirmation" class="sr-only"
-                        >Confirmar Password</label
-                    >
-                    <input
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        placeholder="Confirmar password"
-                        class="border-[0.5px] border-gray-300 rounded-sm p-1 font-light"
-                        v-model="form.password_confirmation"
-                        required
-                    />
-                </div>
+        <n-form-item
+          path="password"
+          label="Password"
+          :validation-status="$page.props.errors.password ? 'error' : null"
+          :feedback="$page.props.errors.password ?? null"
+        >
+          <n-input v-model:value="form.password" type="password" placeholder="password" />
+        </n-form-item>
 
-                <div class="flex flex-col gap-2">
-                    <n-button type="primary" attr-type="submit"
-                        >Registrarse</n-button
-                    >
-                </div>
-            </form>
-        </n-card>
-    </div>
+        <n-form-item
+          path="password_confirmation"
+          label="Confirmar password"
+          :validation-status="$page.props.errors.password_confirmation ? 'error' : null"
+          :feedback="$page.props.errors.password_confirmation ?? null"
+        >
+          <n-input
+            v-model:value="form.password_confirmation"
+            type="password"
+            placeholder="password"
+          />
+        </n-form-item>
+
+        <n-space justify="space-between" class="mt-4">
+          <n-button secondary type="primary" @click="$inertia.visit('/login')">Login</n-button>
+          <n-button type="primary" attr-type="submit" @click="submit">Registrarse</n-button>
+        </n-space>
+      </n-form>
+    </n-card>
+  </div>
 </template>
 
 <script setup>
-import { Head, router, useForm } from "@inertiajs/vue3";
-import { NButton, NCard } from "naive-ui";
-
-defineProps({
-    errors: {
-        type: Object,
-        required: true,
-    },
-});
+import { Head, useForm } from "@inertiajs/vue3";
+import { NButton, NCard, NForm, NFormItem, NInput, NSpace } from "naive-ui";
 
 const form = useForm({
-    name: null,
-    email: null,
-    password: null,
-    password_confirmation: null,
+  name: null,
+  email: null,
+  password: null,
+  password_confirmation: null,
 });
 
 function submit() {
-    router.post("/register", form);
+  form.post("/register", {
+    onError: (errors) => {
+      form.reset("password");
+    },
+  });
 }
 </script>
 
@@ -96,6 +78,6 @@ function submit() {
 import Layout from "@/Layouts/Layout.vue";
 
 export default {
-    layout: Layout,
+  layout: Layout,
 };
 </script>
