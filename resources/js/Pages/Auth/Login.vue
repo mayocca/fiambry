@@ -5,11 +5,21 @@
       <n-form :model="form" :show-label="true">
         <h1 class="text-2xl font-bold text-center">Login</h1>
 
-        <n-form-item path="email" label="Email">
+        <n-form-item
+          path="email"
+          label="Email"
+          :validation-status="$page.props.errors.email ? 'error' : null"
+          :feedback="$page.props.errors.email ?? null"
+        >
           <n-input v-model:value="form.email" placeholder="john.doe@example.com" autofocus />
         </n-form-item>
 
-        <n-form-item path="password" label="Password">
+        <n-form-item
+          path="password"
+          label="Password"
+          :validation-status="$page.props.errors.password ? 'error' : null"
+          :feedback="$page.props.errors.password ?? null"
+        >
           <n-input v-model:value="form.password" type="password" placeholder="password" />
         </n-form-item>
 
@@ -36,13 +46,6 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
 import { NButton, NCard, NCheckbox, NForm, NFormItem, NInput, NSpace } from "naive-ui";
-
-defineProps({
-  errors: {
-    type: Object,
-    required: true,
-  },
-});
 
 const form = useForm({
   email: null,
