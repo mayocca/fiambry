@@ -72,7 +72,9 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return Inertia::render('Orders/Edit', [
+            'order' => $order->load('allowedProducts'),
+        ]);
     }
 
     /**
@@ -80,9 +82,7 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order->allowedProducts()->sync(
-            collect($request->allowed_products)->pluck('id')->toArray()
-        );
+        $order->allowedProducts()->sync($request->allowed_products);
 
         return Redirect::route('orders.show', $order)->with('success', 'Order updated.');
     }

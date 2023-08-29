@@ -1,7 +1,7 @@
 <template>
     <Head :title="`Pedido de ${order.user.name}`" />
 
-    <n-page-header @back="router.visit('/')" class="m-4">
+    <n-page-header class="m-4" @back="router.visit('/')">
         <template #title>
             <span class="text-2xl font-light"
                 >Pedido de {{ order.user.name }}</span
@@ -31,7 +31,7 @@
         </n-card>
 
         <div v-if="order.user_id === $page.props.auth.user?.id">
-            <n-button type="info" @click="$inertia.visit('/orders')">
+            <n-button type="info" @click="$inertia.visit(`/orders/${order.id}/edit`)">
                 Editar detalles
             </n-button>
             <n-button type="primary" @click="$inertia.visit('/orders')">

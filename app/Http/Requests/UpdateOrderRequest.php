@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class UpdateOrderRequest extends FormRequest
 {
@@ -23,8 +25,25 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'allowed_products' => ['required', 'array', 'min:1'],
-            'allowed_products.*' => ['required', 'array:id'],
-            'allowed_products.*.id' => ['required', 'exists:products,id'],
+            'allowed_products.*' => ['required', 'array:name'],
+            'allowed_products.*.name' => ['required', 'string', 'max:255'],
+            'details' => ['nullable', 'string', 'max:255'],
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     */
+    public function passedValidation(): void
+    {
+        $this->merge([
+            'allowed_products' => collect($this->allowed_products)
+                ->pluck('name')
+                ->map(fn (string $name) => Str::transliterate($name))
+                ->map(fn (string $name) => Str::lower($name))
+                ->map(fn (string $name) => Product::firstOrCreate(['name' => $name]))
+                ->pluck('id')
+                ->toArray(),
+        ]);
     }
 }

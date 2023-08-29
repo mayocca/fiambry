@@ -22,7 +22,7 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'allowed_products' => ['required', 'array'],
+            'allowed_products' => ['required', 'array', 'min:1'],
             'allowed_products.*' => ['required', 'array:name'],
             'allowed_products.*.name' => ['required', 'string', 'max:255'],
             'details' => ['nullable', 'string', 'max:255'],
